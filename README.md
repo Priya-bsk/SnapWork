@@ -169,15 +169,15 @@ SnapWork runs in isolated layers connected through a secure preload bridge.
 
 ```text
 ┌─────────────────────────────────────────┐
-│ RENDERER (React + Vite)                │
-│ UI components, hooks, services         │
-│ No direct Node/Electron access         │
+│ RENDERER (React + Vite)                 │
+│ UI components, hooks, services          │
+│ No direct Node/Electron access          │
 ├─────────────────────────────────────────┤
-│ PRELOAD (main/preload.js)              │
-│ contextBridge exposes safe API         │
+│ PRELOAD (main/preload.js)               │
+│ contextBridge exposes safe API          │
 ├─────────────────────────────────────────┤
-│ MAIN PROCESS (Electron + Node.js)      │
-│ IPC handlers, filesystem, process spawn│
+│ MAIN PROCESS (Electron + Node.js)       │
+│ IPC handlers, filesystem, process spawn │
 └─────────────────────────────────────────┘
 ```
 
