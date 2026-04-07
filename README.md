@@ -59,8 +59,21 @@ Exactly how you left them.
 
 No repetition. No context rebuilding.  
 Just switch projects and **keep your momentum going**.
+
 ---
 
+## What It Does
+
+Each workspace saves:
+
+- **Applications** — with optional launch arguments (e.g. VS Code pointed at a specific project folder)
+- **Browser URLs** — opens in your default browser
+- **Folders** — opens in Windows Explorer
+- **Files** — opne your files
+
+Hit **Launch** and everything opens simultaneously.
+
+---
 ## ✨ Features
 
 SnapWork currently supports:
@@ -84,21 +97,13 @@ SnapWork currently supports:
 ---
 
 ## Screenshots
-
-```text
-┌──────────────────────────────────────────────────────┐
-│ SnapWork      [search workspaces...]       [+ New]  │
-├────────────┬─────────────────────────────────────────┤
-│ All        │  ┌──────────────────┐ ┌──────────────┐  │
-│ Dev        │  │ Backend API   ⋮  │ │ Study Plan ⋮ │  │
-│ Study      │  │ ● 3 apps         │ │ ● 5 URLs     │  │
-│ Design     │  │ ● 4 URLs         │ │ ● 2 folders  │  │
-│ Work       │  │ ● 2 folders      │ │ ● 1 file     │  │
-│            │  │ Last: 1h ago     │ │ Last: never  │  │
-│            │  │ [ Launch ]       │ │ [ Launch ]   │  │
-│            │  └──────────────────┘ └──────────────┘  │
-└────────────┴─────────────────────────────────────────┘
-```
+<img width="1178" height="600" alt="img1" src="https://github.com/user-attachments/assets/aad71030-db2e-40a4-9aa7-36117b52d885" />
+<img width="796" height="661" alt="img2" src="https://github.com/user-attachments/assets/02ad58bf-c216-41d0-b491-e4d39f218ac3" />
+<img width="528" height="681" alt="img3" src="https://github.com/user-attachments/assets/baf40a12-b4ea-419a-a6f0-e6fae1b37f86" />
+<img width="476" height="787" alt="img4" src="https://github.com/user-attachments/assets/b47d2d53-48f7-4ccc-aff1-819fb617c28c" />
+<img width="770" height="387" alt="img5" src="https://github.com/user-attachments/assets/1c318593-2510-4c52-aa3a-222f3ce99ead" />
+<img width="1007" height="632" alt="img6" src="https://github.com/user-attachments/assets/735cc7b4-bfec-4163-bf72-6ac01b5ca237" />
+<img width="912" height="349" alt="img7" src="https://github.com/user-attachments/assets/fa22edba-9613-4527-9177-7b41bd2f0434" />
 
 ---
 
