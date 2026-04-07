@@ -1,0 +1,65 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap');
+
+:root {
+  /* Colors */
+  --bg-base:        #0E0E10;
+  --bg-surface:     #1A1A1F;
+  --bg-elevated:    #22222A;
+  --bg-sidebar:     #13131A;
+  --accent:         #00C9A7;
+  --accent-hover:   #00E0BB;
+  --accent-dim:     #00C9A740;
+  --accent-subtle:  #00C9A715;
+  --danger:         #FF5C5C;
+  --danger-dim:     #FF5C5C20;
+  --text-primary:   #F0F0F5;
+  --text-secondary: #8888A0;
+  --text-muted:     #55556A;
+  --border-subtle:  #FFFFFF0F;
+  --border-card:    #FFFFFF12;
+  --border-focus:   #00C9A780;
+  --overlay:        rgba(0, 0, 0, 0.55);
+
+  /* Workspace accent colors */
+  --ws-color-0: #00C9A7;
+  --ws-color-1: #7C5CFC;
+  --ws-color-2: #FF6B6B;
+  --ws-color-3: #4A9EFF;
+  --ws-color-4: #FFB020;
+  --ws-color-5: #4CAF7D;
+
+  /* Radii */
+  --radius-card:   12px;
+  --radius-btn:    8px;
+  --radius-input:  8px;
+  --radius-pill:   100px;
+  --radius-modal:  16px;
+
+  /* Shadows */
+  --shadow-card:   0 2px 12px rgba(0, 0, 0, 0.4);
+  --shadow-modal:  0 8px 40px rgba(0, 0, 0, 0.7);
+  --shadow-hover:  0 8px 24px rgba(0, 0, 0, 0.55);
+
+  /* Spacing */
+  --space-1: 4px;
+  --space-2: 8px;
+  --space-3: 12px;
+  --space-4: 16px;
+  --space-5: 20px;
+  --space-6: 24px;
+  --space-8: 32px;
+
+  /* Typography */
+  --font: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+  --text-xs:  11px;
+  --text-sm:  13px;
+  --text-base: 14px;
+  --text-md:  15px;
+  --text-lg:  17px;
+  --text-xl:  20px;
+  --text-2xl: 24px;
+
+  /* Transitions */
+  --transition: all 200ms ease;
+  --transition-slow: all 280ms cubic-bezier(0.4, 0, 0.2, 1);
+}

@@ -1,0 +1,18 @@
+appId: com.snapwork.app
+productName: SnapWork
+directories:
+  output: dist-electron
+files:
+  - dist/**/*
+  - main/**/*
+  - core/**/*
+  - package.json
+win:
+  target:
+    - target: nsis
+      arch: x64
+  icon: assets/icon.ico
+nsis:
+  oneClick: true
+  createDesktopShortcut: true
+  shortcutName: SnapWork

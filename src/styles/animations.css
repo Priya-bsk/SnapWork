@@ -1,0 +1,53 @@
+/* Keyframes */
+
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to   { opacity: 1; }
+}
+
+@keyframes scaleIn {
+  from { opacity: 0; transform: scale(0.95); }
+  to   { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideInRight {
+  from { transform: translateX(100%); opacity: 0; }
+  to   { transform: translateX(0);    opacity: 1; }
+}
+
+@keyframes slideOutRight {
+  from { transform: translateX(0);    opacity: 1; }
+  to   { transform: translateX(100%); opacity: 0; }
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to   { transform: rotate(360deg); }
+}
+
+@keyframes pulse-glow {
+  0%   { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0.5); }
+  70%  { box-shadow: 0 0 0 10px rgba(0, 201, 167, 0); }
+  100% { box-shadow: 0 0 0 0 rgba(0, 201, 167, 0); }
+}
+
+@keyframes cardDelete {
+  0%   { opacity: 1; transform: scale(1); max-height: 400px; }
+  50%  { opacity: 0; transform: scale(0.95); }
+  100% { opacity: 0; max-height: 0; margin: 0; padding: 0; }
+}
+
+/* Utility classes */
+.animate-fade-in   { animation: fadeIn 200ms ease both; }
+.animate-scale-in  { animation: scaleIn 200ms ease both; }
+.animate-spin      { animation: spin 800ms linear infinite; }
+.animate-pulse-glow { animation: pulse-glow 1s ease 1; }
+
+.panel-enter { animation: slideInRight 280ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+.panel-exit  { animation: slideOutRight 280ms cubic-bezier(0.4, 0, 0.2, 1) both; }
+
+.card-deleting {
+  animation: cardDelete 250ms ease forwards;
+  overflow: hidden;
+  pointer-events: none;
+}
