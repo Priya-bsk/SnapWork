@@ -1,56 +1,103 @@
-# SnapWork
+# ⚡ SnapWork ⚡
 
 > Save your entire work setup. Restore it in one click.
 
-SnapWork is a Windows desktop app built with Electron + React that lets you save and instantly restore complete work environments — apps, browser tabs, and folders — as named workspaces.
+SnapWork is a Windows desktop app built with Electron + React that lets you save and instantly restore complete work environments as named workspaces.
+
+Each workspace can include apps, browser URLs, folders, and files.
 
 ![SnapWork](https://img.shields.io/badge/platform-Windows-blue?style=flat-square)
 ![Version](https://img.shields.io/badge/version-1.0.0--MVP-teal?style=flat-square&color=00C9A7)
-![License](https://img.shields.io/badge/license-MIT-green?style=flat-square)
 ![Electron](https://img.shields.io/badge/Electron-29-47848F?style=flat-square&logo=electron)
 ![React](https://img.shields.io/badge/React-18-61DAFB?style=flat-square&logo=react)
+
+------
+
+## 📌 Table of Contents
+
+- [The Problem](#the-problem)
+- [Features](#-features)
+- [UI Preview](#-screenshots)
+- [Quick Start](#-quick-start)
+- [Architecture](#-architecture)
+- [Data Model](#-data-model)
+- [URL Launching](#-how-url-launching-works)
+- [Adding IPC Channel](#-adding-a-new-ipc-channel)
+- [Security](#-security-baseline)
+- [Design System](#-design-system)
+- [Troubleshooting](#-troubleshooting)
+- [Roadmap](#-roadmap)
+- [Tech Stack](#-tech-stack)
 
 ---
 
 ## The Problem
 
-Every time you switch projects, you spend 5–20 minutes reconstructing your environment — reopening tabs from memory, relaunching apps one by one, navigating back to folders. For people switching contexts 2–3 times a day, that's hours lost every week.
+Switching projects shouldn’t feel like starting from scratch.
 
-No existing tool solves this holistically. Browser bookmark folders are partial. Session managers handle only tabs. Nothing handles **apps + tabs + folders together in one click**.
+Yet every time you switch, you end up:
+- Reopening tabs from memory
+- Restarting your IDE and terminals
+- Relaunching apps one by one
+- Digging through folders to find the right files  
 
-SnapWork does.
+That’s **5–20 minutes lost per switch** — turning into **hours every week** and constantly breaking your flow.
 
+Most tools solve only one slice:
+
+- Bookmark folders save links, not apps and files
+- Session managers restore tabs, not dev tools and folders
+- OS startup tools launch apps, not project-specific tab sets
+
+SnapWork solves the full context-switch loop: apps + URLs + folders + files in one launch flow.
+SnapWork eliminates setup time by restoring your full workspace instantly.
+
+## ⚡ The Solution
+SnapWork brings everything together.
+Launch your full workspace — **apps, browser tabs, folders, and files** — in one click.
+Exactly how you left them.
+
+No repetition. No context rebuilding.  
+Just switch projects and **keep your momentum going**.
 ---
 
-## What It Does
+## ✨ Features
 
-Each workspace saves:
+SnapWork currently supports:
 
-- **Applications** — with optional launch arguments (e.g. VS Code pointed at a specific project folder)
-- **Browser URLs** — opens in your default browser
-- **Folders** — opens in Windows Explorer
-
-Hit **Launch** and everything opens simultaneously.
+- **Workspace CRUD**: create, edit, duplicate, delete
+- **Category system**: `dev`, `study`, `design`, `work` + `all`
+- **Search**: filter workspaces by name
+- **Launch orchestration**: launch all items in a workspace from one button
+- **Launch result log**: per-item success/failure in a modal
+- **Chrome profile support** for URLs:
+  - Detects local Chrome profiles
+  - Lets you bind a URL to a profile
+  - Falls back to default browser if profile launch is unavailable
+- **Native pickers**:
+  - File picker for app executable and file paths
+  - Folder picker for folder paths
+- **Local persistence**:
+  - Stores workspaces in local JSON
+  - Uses atomic writes to reduce corruption risk
 
 ---
 
 ## Screenshots
 
-```
-┌─────────────────────────────────────────────────────┐
-│  SnapWork        [search workspaces...]    [+ New]   │
-├──────────┬──────────────────────────────────────────┤
-│          │                                           │
-│ All      │  ┌──────────────────┐ ┌────────────────┐ │
-│ Recent   │  │ T  ThriveEd  ⋮  │ │ S  Study    ⋮  │ │
-│ Dev      │  │                  │ │                │ │
-│ Study    │  │ ● 3 apps         │ │ ● 5 URLs       │ │
-│ Design   │  │ ● 5 URLs         │ │ ● 2 folders    │ │
-│ Work     │  │ ● 2 folders      │ │                │ │
-│          │  │ Last: 2h ago     │ │ Last: never    │ │
-│          │  │ [ ▶  Launch  ]   │ │ [ ▶  Launch ]  │ │
-│          │  └──────────────────┘ └────────────────┘ │
-└──────────┴──────────────────────────────────────────┘
+```text
+┌──────────────────────────────────────────────────────┐
+│ SnapWork      [search workspaces...]       [+ New]  │
+├────────────┬─────────────────────────────────────────┤
+│ All        │  ┌──────────────────┐ ┌──────────────┐  │
+│ Dev        │  │ Backend API   ⋮  │ │ Study Plan ⋮ │  │
+│ Study      │  │ ● 3 apps         │ │ ● 5 URLs     │  │
+│ Design     │  │ ● 4 URLs         │ │ ● 2 folders  │  │
+│ Work       │  │ ● 2 folders      │ │ ● 1 file     │  │
+│            │  │ Last: 1h ago     │ │ Last: never  │  │
+│            │  │ [ Launch ]       │ │ [ Launch ]   │  │
+│            │  └──────────────────┘ └──────────────┘  │
+└────────────┴─────────────────────────────────────────┘
 ```
 
 ---
@@ -68,18 +115,18 @@ Hit **Launch** and everything opens simultaneously.
 ### Run in development
 
 ```bash
-# 1. Clone the repo
+# 1) Clone the repo
 git clone https://github.com/yourusername/snapwork.git
 cd snapwork
 
-# 2. Install dependencies
+# 2) Install dependencies
 npm install
 
-# 3. Start the app
+# 3) Start app (Vite + Electron)
 npm run dev
 ```
 
-`npm run dev` boots Vite (the React dev server) and Electron simultaneously. The desktop window opens automatically after ~3 seconds.
+`npm run dev` starts Vite on port `5173`, waits for it to be ready, then starts Electron.
 
 ### Build a Windows installer
 
@@ -87,92 +134,93 @@ npm run dev
 npm run package
 ```
 
-Produces a `.exe` installer in `dist-electron/`. Requires an icon at `assets/icon.ico` (256×256).
+Build output is created in `dist-electron/`.
 
 ---
 
 ## Architecture
 
-SnapWork runs in two isolated worlds connected by a secure bridge:
+SnapWork runs in isolated layers connected through a secure preload bridge.
 
-```
+```text
 ┌─────────────────────────────────────────┐
-│  RENDERER  (React + Vite)               │
-│  UI components, hooks, services         │
-│  Sandboxed — no file system access      │
+│ RENDERER (React + Vite)                │
+│ UI components, hooks, services         │
+│ No direct Node/Electron access         │
 ├─────────────────────────────────────────┤
-│  BRIDGE  (main/preload.js)              │
-│  contextBridge — the only crossing      │
+│ PRELOAD (main/preload.js)              │
+│ contextBridge exposes safe API         │
 ├─────────────────────────────────────────┤
-│  MAIN PROCESS  (Node.js + Electron)     │
-│  File I/O, process spawning, OS calls   │
+│ MAIN PROCESS (Electron + Node.js)      │
+│ IPC handlers, filesystem, process spawn│
 └─────────────────────────────────────────┘
 ```
 
-### Project structure
+### 📂 Project structure
 
-```
+```text
 snapwork/
 ├── main/
-│   ├── index.js                  # Window creation, app lifecycle
-│   ├── preload.js                # contextBridge — exposes electronAPI
+│   ├── index.js                  # Window lifecycle and IPC registration
+│   ├── preload.js                # Safe API bridge (window.electronAPI)
 │   └── ipc/
-│       ├── workspaceHandlers.js  # CRUD: getAll, create, update, delete, duplicate
-│       ├── launcherHandlers.js   # Launch execution — URLs, apps, folders
-│       └── dialogHandlers.js     # Native file/folder picker dialogs
+│       ├── workspaceHandlers.js  # CRUD handlers
+│       ├── launcherHandlers.js   # Workspace launch handlers
+│       └── dialogHandlers.js     # Native open file/folder dialogs
 ├── core/
-│   ├── storage.js                # Atomic JSON read/write to workspaces.json
-│   ├── launcher.js               # OS shell: openExternal, spawn, openPath
-│   ├── validator.js              # Pure validation functions
-│   ├── workspace.js              # Object factory + schema constants
-│   └── logger.js                 # Dev/prod toggleable logger
+│   ├── storage.js                # Atomic JSON persistence
+│   ├── launcher.js               # URL/app/folder/file launch logic
+│   ├── validator.js              # Workspace validation
+│   ├── workspace.js              # Workspace model helpers
+│   ├── chromeProfiles.js         # Chrome profile detection
+│   └── logger.js
 ├── src/
 │   ├── services/
-│   │   ├── workspaceService.js   # Wraps window.electronAPI.workspace.*
-│   │   └── launcherService.js    # Wraps window.electronAPI.launcher.*
+│   │   ├── workspaceService.js   # Renderer wrapper for workspace IPC
+│   │   └── launcherService.js    # Renderer wrapper for launch IPC
 │   ├── hooks/
-│   │   ├── useWorkspaces.js      # Workspace list state + CRUD actions
-│   │   └── useLaunch.js          # Launch state, log, loading flag
+│   │   ├── useWorkspaces.js      # Workspace list and CRUD state
+│   │   └── useLaunch.js          # Launch state + launch logs
 │   ├── components/
-│   │   ├── Titlebar/             # Custom frameless window chrome
-│   │   ├── Sidebar/              # Left nav with filter categories
-│   │   ├── WorkspaceList/        # Responsive card grid
-│   │   ├── WorkspaceForm/        # Slide-in create/edit panel
-│   │   ├── LaunchLog/            # Results modal
-│   │   └── common/               # EmptyState, shared primitives
+│   │   ├── Titlebar/
+│   │   ├── Sidebar/
+│   │   ├── WorkspaceList/
+│   │   ├── WorkspaceForm/
+│   │   ├── LaunchLog/
+│   │   └── common/
 │   └── styles/
-│       ├── tokens.css            # All CSS variables (colors, radii, shadows)
-│       ├── animations.css        # Keyframes and transition classes
-│       └── global.css            # Reset and base styles
-├── index.html
+│       ├── tokens.css
+│       ├── animations.css
+│       └── global.css
+├── electron-builder.yml
 ├── vite.config.js
-├── package.json
-└── electron-builder.yml
+└── package.json
 ```
 
 ### Layer rules
 
 | Layer | Rule |
 |---|---|
-| `core/` | Zero knowledge of IPC, UI, or Electron APIs. Pure Node.js logic. |
-| `main/ipc/` | One file per domain. Each exports `register(ipcMain)`. Never touches UI. |
-| `main/preload.js` | Only exposes named methods via `contextBridge`. Raw `ipcRenderer` never exposed. |
-| `src/services/` | The **only** files that call `window.electronAPI`. Everything else imports from here. |
-| `src/hooks/` | Manage React state. Call services only. No JSX, no IPC. |
-| `src/components/` | Zero business logic. Props in, callbacks out. |
+| `core/` | Business logic only. No UI and no renderer concerns. |
+| `main/ipc/` | One domain per handler file. Returns structured `{ success, data?, error? }`. |
+| `main/preload.js` | Exposes allowed methods only. Does not expose raw `ipcRenderer`. |
+| `src/services/` | Single access point to `window.electronAPI` from renderer. |
+| `src/hooks/` | State and async orchestration, no direct Electron calls. |
+| `src/components/` | Presentation and user interaction only. |
 
 ---
 
 ## Data Model
 
-All data is stored locally — no database, no cloud, no backend.
+All data is local-first. No backend, no cloud dependency.
 
-**Location:** `C:\Users\<You>\AppData\Roaming\SnapWork\workspaces.json`
+**Storage location (Windows):** `C:\Users\<You>\AppData\Roaming\SnapWork\workspaces.json`
 
 ```json
 {
   "id": "uuid-v4",
   "name": "ThriveEd Backend",
+  "category": "dev",
   "color": "#00C9A7",
   "apps": [
     {
@@ -182,46 +230,62 @@ All data is stored locally — no database, no cloud, no backend.
     }
   ],
   "urls": [
-    "https://github.com/user/thriveed",
-    "https://stackoverflow.com"
+    {
+      "url": "https://github.com/user/thriveed",
+      "profile": "Default"
+    },
+    {
+      "url": "https://stackoverflow.com",
+      "profile": ""
+    }
   ],
   "folders": [
     "C:\\projects\\thriveed\\backend"
   ],
-  "createdAt": "2025-03-28T10:00:00.000Z",
-  "updatedAt": "2025-03-28T10:00:00.000Z",
+  "files": [
+    "C:\\Users\\Priya\\Documents\\Notes.md"
+  ],
+  "createdAt": "2026-04-07T10:00:00.000Z",
+  "updatedAt": "2026-04-07T10:00:00.000Z",
   "lastLaunched": null
 }
 ```
 
-Writes are **atomic** — data is written to a `.tmp` file first, then renamed, so a crash never corrupts your workspaces.
+Writes are **atomic**: SnapWork writes to a temporary `.tmp` file first, then renames it.
 
 ---
 
-## How Chrome Tabs Work
+## How URL Launching Works
 
-SnapWork stores URLs as plain strings and opens them via `shell.openExternal()`, which hands the URL to your default browser. This means:
+SnapWork supports two URL launch paths:
 
-| ✅ What's saved | ❌ What's not saved |
-|---|---|
-| The URL | Scroll position |
-| Opens fresh on launch | Form data |
-| Works with any browser | Video timestamps |
-| No extension needed | Tab groups or pinned state |
+1. **Default browser path** via `shell.openExternal(url)`
+2. **Chrome profile path** when a profile is selected and Chrome is installed
 
-**Tip:** For pages where position matters (YouTube, long docs), copy the URL at the exact moment you want to resume — many apps embed state in the URL itself (e.g. `?t=2852` for YouTube timestamps).
+What this gives you:
+
+- Open URLs in specific Chrome profiles for account separation
+- Keep personal/work accounts cleanly isolated
+- Fall back gracefully to default browser if needed
+
+What it does not currently do:
+
+- Restore tab groups
+- Restore scroll position or transient form state
+- Restore exact browser session internals
 
 ---
 
 ## Adding a New IPC Channel
 
-Four files to touch, in this order:
+Four files to touch, in order:
 
-**1.** `main/ipc/yourDomainHandlers.js` — add the handler
+**1.** `main/ipc/yourDomainHandlers.js`
+
 ```js
 ipcMain.handle('domain:action', async (_event, payload) => {
   try {
-    // do work
+    const result = await doWork(payload)
     return { success: true, data: result }
   } catch (err) {
     return { success: false, error: err.message }
@@ -229,120 +293,116 @@ ipcMain.handle('domain:action', async (_event, payload) => {
 })
 ```
 
-**2.** `main/index.js` — register it
+**2.** `main/index.js` (register handler)
+
 ```js
 const yourHandlers = require('./ipc/yourDomainHandlers')
 yourHandlers.register(ipcMain)
 ```
 
-**3.** `main/preload.js` — expose it
+**3.** `main/preload.js` (expose safe bridge)
+
 ```js
 yourDomain: {
   action: (payload) => ipcRenderer.invoke('domain:action', payload)
 }
 ```
 
-**4.** `src/services/yourDomainService.js` — wrap it
+**4.** `src/services/yourDomainService.js` (renderer wrapper)
+
 ```js
 async function action(payload) {
   const res = await window.electronAPI.yourDomain.action(payload)
   if (!res.success) throw new Error(res.error)
   return res.data
 }
+
 export const yourDomainService = { action }
 ```
 
 ---
 
-## The Critical Security Setting
+## 🔐 Security Baseline
+
+SnapWork enforces Electron security defaults that should stay unchanged:
 
 ```js
-// main/index.js
 new BrowserWindow({
   webPreferences: {
-    contextIsolation: true,  // ← NEVER disable this
-    nodeIntegration: false,  // ← NEVER enable this
-    preload: path.join(__dirname, 'preload.js'),
+    contextIsolation: true,
+    nodeIntegration: false,
+    preload: path.join(__dirname, 'preload.js')
   }
 })
 ```
 
-Without `contextIsolation: true`, `contextBridge` silently does nothing and `window.electronAPI` will be `undefined` in the renderer. This is the #1 mistake Electron developers make.
+This ensures renderer code cannot directly access Node APIs and can only call methods intentionally exposed by preload.
 
 ---
 
-## Design System
+## 🎨 Design System
 
-Dark-mode-first. All values are CSS variables in `src/styles/tokens.css` — no hardcoded hex in components.
+Dark-mode-first UI built from CSS tokens in `src/styles/tokens.css`.
 
-| Token | Value | Used for |
+| Token | Value | Purpose |
 |---|---|---|
-| `--bg-base` | `#0E0E10` | App background |
-| `--bg-surface` | `#1A1A1F` | Cards, panels |
-| `--bg-elevated` | `#22222A` | Inputs, dropdowns |
+| `--bg-base` | `#0E0E10` | Window base background |
+| `--bg-surface` | `#1A1A1F` | Cards and panels |
+| `--bg-elevated` | `#22222A` | Inputs and controls |
 | `--accent` | `#00C9A7` | Primary actions |
-| `--danger` | `#FF5C5C` | Delete, errors |
-| `--text-primary` | `#F0F0F5` | Main text |
-| `--text-secondary` | `#8888A0` | Labels, captions |
+| `--danger` | `#FF5C5C` | Error and destructive actions |
+| `--text-primary` | `#F0F0F5` | Primary text |
+| `--text-secondary` | `#8888A0` | Secondary text |
 
-Icons: [lucide-react](https://lucide.dev). Font: Inter.
+Icons are provided by `lucide-react`.
 
 ---
 
-## Troubleshooting
+## 🛠️ Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| `npm is not recognized` | Install Node.js from nodejs.org, restart terminal |
-| Blank white window | Wait 5 seconds, press `Ctrl+R` in the Electron window |
-| `Cannot find module 'electron'` | Run `npm install` again |
-| Port 5173 in use | Change port in `vite.config.js` and `main/index.js` |
-| `window.electronAPI` is undefined | Check `contextIsolation: true` and preload path in `main/index.js` |
-| App launches but crashes on open | Path to executable is wrong — use the browse button to select it |
+| `npm is not recognized` | Install Node.js from nodejs.org and restart terminal |
+| Blank/failed app load in dev | Ensure Vite port `5173` is available and `npm run dev` succeeds |
+| `Cannot find module 'electron'` | Reinstall dependencies with `npm install` |
+| URL profile launch fails | Verify Chrome is installed and selected profile exists |
+| `window.electronAPI` is undefined | Check preload path, `contextIsolation: true`, and `nodeIntegration: false` |
+| Launch item fails | Re-select app/folder/file path with browse dialogs |
 
 ---
 
 ## Roadmap
 
-| Phase | What's coming |
+| Phase | Plan |
 |---|---|
-| **Phase 2 — Capture** | Auto-detect open apps and tabs to snapshot your current session in one click |
-| **Phase 3 — Switching** | Optionally close all current apps before opening the next workspace |
-| **Phase 4 — Sync** | Cloud backup, cross-device access, team workspace sharing |
-| **Phase 5 — Intelligence** | AI workspace suggestions based on calendar, time of day, recent activity |
+| Phase 2 | Workspace templates and faster capture flow |
+| Phase 3 | Stronger session restore options |
+| Phase 4 | Optional sync and backup |
+| Phase 5 | Smart suggestions and launch recommendations |
 
 ---
 
-## Tech Stack
+## 🧰 Tech Stack
 
 | Layer | Technology |
 |---|---|
-| Desktop shell | Electron 29 |
+| Desktop runtime | Electron 29 |
 | UI | React 18 |
 | Build tool | Vite 5 |
-| Packaging | electron-builder |
+| Packaging | electron-builder + NSIS |
 | Icons | lucide-react |
-| IDs | uuid v4 |
+| ID generation | uuid |
 | Storage | Local JSON file |
 
 ---
 
-## Contributing
+## 🤝 Contributing
 
-1. Fork the repo
-2. Create a feature branch: `git checkout -b feature/your-feature`
-3. Follow the architecture rules in the table above — one responsibility per file
-4. Test your IPC channel with the 4-touch-point pattern
-5. Open a pull request
-
----
-
-## License
-
-MIT — see [LICENSE](LICENSE) for details.
+1. Fork the repository
+2. Create a branch: `git checkout -b feature/your-feature`
+3. Keep layer boundaries intact (`core` -> `ipc` -> `preload` -> `services` -> `hooks/components`)
+4. Test the full flow in dev mode
+5. Open a pull request with clear scope
 
 ---
 
-<p align="center">
-  Built with Electron + React &nbsp;·&nbsp; No cloud &nbsp;·&nbsp; No backend &nbsp;·&nbsp; Just your work, restored.
-</p>
