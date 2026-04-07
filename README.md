@@ -17,17 +17,19 @@ Each workspace can include apps, browser URLs, folders, and files.
 
 - [The Problem](#the-problem)
 - [Features](#-features)
-- [UI Preview](#-screenshots)
-- [Quick Start](#-quick-start)
-- [Architecture](#-architecture)
-- [Data Model](#-data-model)
-- [URL Launching](#-how-url-launching-works)
-- [Adding IPC Channel](#-adding-a-new-ipc-channel)
+- [UI Preview](#screenshots)
+- [Quick Start](#quick-start)
+- [Architecture](#architecture)
+- [Project structure](#-project-structure)
+- [Data Model](#data-model)
+- [URL Launching](#how-url-launching-works)
+- [Adding IPC Channel](#adding-a-new-ipc-channel)
 - [Security](#-security-baseline)
 - [Design System](#-design-system)
 - [Troubleshooting](#-troubleshooting)
-- [Roadmap](#-roadmap)
+- [Roadmap](#roadmap)
 - [Tech Stack](#-tech-stack)
+- [Contributing](#-contributing)
 
 ---
 
@@ -97,13 +99,29 @@ SnapWork currently supports:
 ---
 
 ## Screenshots
-<img width="1178" height="600" alt="img1" src="https://github.com/user-attachments/assets/aad71030-db2e-40a4-9aa7-36117b52d885" />
-<img width="796" height="661" alt="img2" src="https://github.com/user-attachments/assets/02ad58bf-c216-41d0-b491-e4d39f218ac3" />
-<img width="528" height="681" alt="img3" src="https://github.com/user-attachments/assets/baf40a12-b4ea-419a-a6f0-e6fae1b37f86" />
-<img width="476" height="787" alt="img4" src="https://github.com/user-attachments/assets/b47d2d53-48f7-4ccc-aff1-819fb617c28c" />
-<img width="770" height="387" alt="img5" src="https://github.com/user-attachments/assets/1c318593-2510-4c52-aa3a-222f3ce99ead" />
-<img width="1007" height="632" alt="img6" src="https://github.com/user-attachments/assets/735cc7b4-bfec-4163-bf72-6ac01b5ca237" />
-<img width="912" height="349" alt="img7" src="https://github.com/user-attachments/assets/fa22edba-9613-4527-9177-7b41bd2f0434" />
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/aad71030-db2e-40a4-9aa7-36117b52d885" width="700" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/02ad58bf-c216-41d0-b491-e4d39f218ac3" width="500" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/b47d2d53-48f7-4ccc-aff1-819fb617c28c" width="300" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/1c318593-2510-4c52-aa3a-222f3ce99ead" width="550" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/735cc7b4-bfec-4163-bf72-6ac01b5ca237" width="650" />
+</p>
+
+<p align="center">
+  <img src="https://github.com/user-attachments/assets/fa22edba-9613-4527-9177-7b41bd2f0434" width="600" />
+</p>
 
 ---
 
