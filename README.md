@@ -56,7 +56,9 @@ SnapWork eliminates setup time by restoring your full workspace instantly.
 
 ## ⚡ The Solution
 SnapWork brings everything together.
+
 Launch your full workspace — **apps, browser tabs, folders, and files** — in one click.
+
 Exactly how you left them.
 
 No repetition. No context rebuilding.  
